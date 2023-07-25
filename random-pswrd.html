@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>random pasword generator</title>
+</head>
+
+<body>
+    box for paswrd read : <textarea name="" id="readTextOnly" cols="10" rows="4"></textarea><br><br>
+    <!-- box for paswrd read : <input type="text" name="" id="" ><br><br> -->
+    length of paswrd : <input type="number" name="" id="rangeInput" min="4" max="14" value=""><br><br>
+    UpperCase paswrd : <input type="checkbox" name="uppercase" id="upperCaseCheck"><br><br>
+    LowerCase paswrd : <input type="checkbox" name="lowercase" id="lowerCaseCheck"><br><br>
+    Number paswrd : <input type="checkbox" name="number" id="numbercheck"><br><br>
+
+    <button id="btnnn" type="submit">Submit pasword</button>
+
+    <script>
+        let lowerSet = 'abcdefghijklmnopqrstuvwxyz';
+        let upperSet = 'ABCDEFGIJKLMNOPQRSTUVWXYZ'
+        let numberSet = '0123456789';
+
+        //// variables for dom manipulation
+
+        let readTextOnly = document.getElementById('readTextOnly');
+        let rangeInput = document.getElementById('rangeInput');
+        let upperCaseCheck = document.getElementById('upperCaseCheck');
+        let lowerCaseCheck = document.getElementById('lowerCaseCheck');
+        let numbercheck = document.getElementById('numbercheck');
+
+
+        let randomData = (dataset) => {
+            return dataset[Math.floor(Math.random() * dataset.length)];
+
+        }
+
+
+        let paswordGenerator = (pasword = '') => {
+            if (upperCaseCheck.checked) {
+                pasword += randomData(upperSet);
+            }
+            if (lowerCaseCheck.checked) {
+                pasword += randomData(lowerSet);
+            }
+            if (numbercheck.checked) {
+                pasword += randomData(numberSet);
+            }
+            if (pasword.length < rangeInput.value) {
+                return paswordGenerator(pasword);  // this is recursive function (function k ander function ko call krna)
+            }
+
+            myTruncatedString = pasword.substring(0, rangeInput.value);
+            readTextOnly.innerText = myTruncatedString;
+        }
+        // paswordGenerator();
+
+        document.getElementById('btnnn').addEventListener('click', function () {
+            paswordGenerator();
+        }); 
+    </script>
+</body>
+
+</html>
